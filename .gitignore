@@ -1,20 +1,5 @@
-# Node
+# Final merged .gitignore
 node_modules/
 .env
-
-# Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Build
-dist/
-build/
-
-# OS
-.DS_Store
-Thumbs.db
-
-# IDEs
 .vscode/
-.idea/
+dist/
