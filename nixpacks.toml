@@ -1,0 +1,8 @@
+[phases.setup]
+nixPkgs = ["nodejs", "npm"]
+
+[phases.build]
+cmds = ["cd BACKEND && npm install"]
+
+[phases.start]
+cmd = "cd BACKEND && npm run dev"
