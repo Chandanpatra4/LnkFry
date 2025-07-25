@@ -16,7 +16,8 @@ export const createShortUrl = wrapAsync(async (req, res) => {
        shortUrl = await createShortUrlWithOutUserService(data.url)
    }
 
-   res.status(200).json({ shortUrl: process.env.APP_URL + shortUrl })
+  res.status(200).json({ shortUrl: `${process.env.APP_URL}/${shortUrl}` });
+
 })
 
 
@@ -32,6 +33,7 @@ export const createCustomShortUrl = wrapAsync(async (req, res) => {
    const { url, slug } = req.body;
 
    const shortUrl = await createShortUrlWithOutUserService(url, customShortUrl);
-   res.status(200).json({ shortUrl: process.env.APP_URL + shortUrl });
+res.status(200).json({ shortUrl: `${process.env.APP_URL}/${shortUrl}` });
+
 })
 
