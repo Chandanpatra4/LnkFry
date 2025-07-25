@@ -19,10 +19,17 @@ const app = express();
 connectDB();
 
 // Middleware
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://lnkfry.vercel.app" // ✅ replace with your Vercel frontend domain
+];
+
 app.use(cors({
-    origin: process.env.CORS_ORIGIN || "http://localhost:5173", // Allow requests from the frontend URL
-    credentials: true // Allow cookies to be sent with requests
+  origin: allowedOrigins,
+  credentials: true
 }));
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
