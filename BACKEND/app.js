@@ -21,7 +21,7 @@ connectDB();
 // Middleware
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://lnkfry.vercel.app" // ✅ replace with your Vercel frontend domain
+  "https://lnk-fry.vercel.app" 
 ];
 
 app.use(cors({
