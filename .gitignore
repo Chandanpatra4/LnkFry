@@ -1,0 +1,5 @@
+# Final merged .gitignore
+node_modules/
+.env
+.vscode/
+dist/
