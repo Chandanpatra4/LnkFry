@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { createShortUrl } from '../api/shortUrl.api'
 
 const UrlForm = () => {
+    const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000'
     const [Url, setUrl] = useState("")
     const [shortUrl, setShortUrl] = useState()
     const [copySuccess, setCopySuccess] = useState(false)

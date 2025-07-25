@@ -86,7 +86,7 @@ const UserUrl = () => {
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:text-blue-900 hover:underline"
                     >
-                      {`${baseUrl.replace(/^https?:\/\//, '')}/${url.short_url}`}
+                      {`${baseUrl}/${url.short_url}`}
                     </a>
                   </div>
                 </td>
