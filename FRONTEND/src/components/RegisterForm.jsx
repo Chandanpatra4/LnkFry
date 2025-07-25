@@ -48,13 +48,14 @@ const RegisterForm = ({state}) => {
         try {
             // Call the register API
             const data = await registerUser(formData.name, formData.email, formData.password)
+            
+            // Set auth state immediately with the returned user data
             dispatch(login(data.user))
-    
-            navigate({to:"/dashboard"})
+            
             console.log('Registration successful:', data)
             
-
-            alert('Registration successful! Please login.')
+            // Navigate to dashboard
+            navigate({to:"/dashboard"})
             
             // Reset form
             setFormData({

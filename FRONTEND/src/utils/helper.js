@@ -6,19 +6,26 @@ import { redirect } from "@tanstack/react-router"
 export const checkAuth = async ({ context }) => {
     try {
         const { queryClient, store } = context;
-        const user = await queryClient.ensureQueryData({
-            querykey: ["currentUser"],
-            queryFn: getCurrentUser,
-
-        });
-        if (!user) return false
-        store.dispatch(login(user));
+        
+        // Check if user is already authenticated in Redux store
         const { isAuthenticated } = store.getState().auth;
-        if (!isAuthenticated) return false;
-        return true
+        if (isAuthenticated) return true;
+        
+        // Try to get current user from API
+        const data = await queryClient.ensureQueryData({
+            queryKey: ["currentUser"],
+            queryFn: getCurrentUser,
+        });
+        
+        if (!data || !data.user) {
+            throw new Error("No user found");
+        }
+        
+        store.dispatch(login(data.user));
+        return true;
 
     } catch (error) {
-      return redirect ({to:'/auth'})
+        console.log("Auth check failed:", error);
+        return redirect({ to: '/auth' });
     }
-
 }

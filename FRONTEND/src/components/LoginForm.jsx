@@ -33,14 +33,15 @@ const LoginForm = ({ state }) => {
 
         try {
             // Call the login API
-            const data = await loginUser(formData.password, formData.email)
+            const data = await loginUser(formData.email, formData.password)
+            
+            // Set auth state immediately with the returned user data
             dispatch(login(data.user))
-            navigate({to:"/dashboard"})
-            // Handle successful login
+            
             console.log('Login successful:', data)
-
-
-            alert('Login successful!')
+            
+            // Navigate to dashboard
+            navigate({to:"/dashboard"})
 
         } catch (err) {
             console.error('Login error:', err)
