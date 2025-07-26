@@ -19,15 +19,14 @@ const app = express();
 connectDB();
 
 // Middleware
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://lnk-fry.vercel.app" 
-];
 
-app.use(cors({
-  origin: allowedOrigins,
-  credentials: true
-}));
+
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN,
+    credentials: true, // <- very important for cookies
+  })
+);
 
 
 app.use(express.json());
