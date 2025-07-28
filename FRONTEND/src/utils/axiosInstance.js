@@ -1,6 +1,7 @@
 
 
 import axios from 'axios';
+import { store } from '../store/store.js';
 
 const axiosInstance = axios.create({
    baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -10,6 +11,24 @@ const axiosInstance = axios.create({
         'Content-Type': 'application/json',
     }
 })
+
+// Request interceptor to add token to headers as fallback
+axiosInstance.interceptors.request.use(
+    (config) => {
+        // Get token from Redux store if available
+        const state = store.getState();
+        const token = state.auth.token;
+        
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
 
 
 

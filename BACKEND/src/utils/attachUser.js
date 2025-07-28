@@ -2,9 +2,19 @@ import { findUserById } from "../dao/user.dao.js"
 import { verifyToken } from "./helper.js"
 
 export const attachUser = async (req, res, next) => {
-    const token = req.cookies.accessToken
-    console.log("AttachUser - Token from cookies:", token ? "Present" : "Missing");
-    console.log("AttachUser - All cookies:", req.cookies);
+    let token = req.cookies.accessToken;
+    
+    // If no cookie token, check Authorization header
+    if (!token) {
+        const authHeader = req.headers.authorization;
+        if (authHeader && authHeader.startsWith('Bearer ')) {
+            token = authHeader.substring(7);
+        }
+    }
+    
+    console.log("AttachUser - Token from cookies:", req.cookies.accessToken ? "Present" : "Missing");
+    console.log("AttachUser - Token from header:", req.headers.authorization ? "Present" : "Missing");
+    console.log("AttachUser - Final token:", token ? "Present" : "Missing");
     
     if (!token) return next()
 

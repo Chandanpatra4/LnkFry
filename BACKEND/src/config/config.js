@@ -4,5 +4,4 @@ export const cookieOptions = {
     sameSite: process.env.NODE_ENV === 'production' ? "None" : "Lax", // Important for cross-origin
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
     path: '/', // Ensure cookie is available for all paths
-    domain: process.env.NODE_ENV === 'production' ? undefined : undefined // Let browser handle domain
 }

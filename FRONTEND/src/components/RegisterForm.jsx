@@ -51,8 +51,8 @@ const RegisterForm = ({state}) => {
             // Call the register API
             const data = await registerUser(formData.name, formData.email, formData.password)
             
-            // Set auth state immediately with the returned user data
-            dispatch(login(data.user))
+            // Set auth state immediately with the returned user data and token
+            dispatch(login(data)) // Pass the full data object
             
             // Invalidate queries to refetch with new auth state
             queryClient.invalidateQueries({ queryKey: ['userUrls'] })
