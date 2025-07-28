@@ -23,7 +23,7 @@ export const getCurrentUser = async () => {
 export const getAllUserUrls = async () => {
     try {
         const { data } = await axiosInstance.post("/api/user/urls");
-        console.log('getAllUserUrls API response:', data);
+       
         return data;
     } catch (error) {
         console.error('getAllUserUrls API error:', error);

@@ -9,8 +9,7 @@ export const register_user = wrapAsync(async (req, res) => {
     const { token, user } = await registerUser(name, email, password);
     req.user = user;
 
-    console.log("Setting cookie with options:", cookieOptions);
-    console.log("Generated token:", token);
+
 
     res.cookie("accessToken", token, cookieOptions);
     res.status(201).json({
@@ -26,9 +25,7 @@ export const login_user = wrapAsync(async (req, res) => {
    const {token,user} = await loginUser(email,password)
    req.user = user;
    
-   console.log("Login - Setting cookie with options:", cookieOptions);
-   console.log("Login - Generated token:", token);
-   console.log("Login - NODE_ENV:", process.env.NODE_ENV);
+   
    
    res.cookie("accessToken", token, cookieOptions);
    res.status(200).json({

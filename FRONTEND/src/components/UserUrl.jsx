@@ -17,9 +17,7 @@ const UserUrl = () => {
     staleTime: 0, // Consider data stale immediately so it refetches when invalidated
   })
   
-  // Debug: Log the actual data structure
-  console.log('UserUrl component - urls data:', urls)
-  console.log('UserUrl component - isAuthenticated:', isAuthenticated)
+
   
   const [copiedId, setCopiedId] = useState(null)
   const handleCopy = (url, id) => {

@@ -12,9 +12,7 @@ export const attachUser = async (req, res, next) => {
         }
     }
     
-    console.log("AttachUser - Token from cookies:", req.cookies.accessToken ? "Present" : "Missing");
-    console.log("AttachUser - Token from header:", req.headers.authorization ? "Present" : "Missing");
-    console.log("AttachUser - Final token:", token ? "Present" : "Missing");
+    
     
     if (!token) return next()
 
@@ -26,7 +24,7 @@ export const attachUser = async (req, res, next) => {
             return next()
         }
         req.user = user
-        console.log("AttachUser - User attached:", user.email);
+    
         next()
     } catch (error) {
         console.log("AttachUser - Error:", error.message)

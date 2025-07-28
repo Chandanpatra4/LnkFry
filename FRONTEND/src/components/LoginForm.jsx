@@ -44,7 +44,7 @@ const LoginForm = ({ state }) => {
             queryClient.invalidateQueries({ queryKey: ['userUrls'] })
             queryClient.invalidateQueries({ queryKey: ['currentUser'] })
             
-            console.log('Login successful:', data)
+           
             
             // Navigate to dashboard
             navigate({to:"/dashboard"})

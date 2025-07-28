@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import { login } from '../store/slices/authSlice'
 import { useQueryClient } from '@tanstack/react-query'
 
-const RegisterForm = ({state}) => {
+const RegisterForm = ({ state }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -14,7 +14,7 @@ const RegisterForm = ({state}) => {
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState('')
     const [showPassword, setShowPassword] = useState(false)
-     const navigate = useNavigate()
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const queryClient = useQueryClient()
 
@@ -50,26 +50,26 @@ const RegisterForm = ({state}) => {
         try {
             // Call the register API
             const data = await registerUser(formData.name, formData.email, formData.password)
-            
+
             // Set auth state immediately with the returned user data and token
             dispatch(login(data)) // Pass the full data object
-            
+
             // Invalidate queries to refetch with new auth state
             queryClient.invalidateQueries({ queryKey: ['userUrls'] })
             queryClient.invalidateQueries({ queryKey: ['currentUser'] })
-            
-            console.log('Registration successful:', data)
-            
+
+            console.log('Registration successful:')
+
             // Navigate to dashboard
-            navigate({to:"/dashboard"})
-            
+            navigate({ to: "/dashboard" })
+
             // Reset form
             setFormData({
                 name: '',
                 email: '',
                 password: ''
             })
-            
+
         } catch (err) {
             console.error('Registration error:', err)
             // Handle different types of errors
@@ -185,17 +185,17 @@ const RegisterForm = ({state}) => {
                         'Create Account'
                     )}
                 </button>
-                </form>
+            </form>
 
-                {/* Sign In Link */}
-                <div className='mt-8 text-center'>
-                    <p className='text-gray-600 text-sm cursor-pointer '>
-                        Already have an account?{' '}
-                        <span onClick={() => state(true)} className='text-indigo-600 hover:text-indigo-800 font-medium underline'>
-                            Sign in here
-                        </span>
-                    </p>
-                </div>
+            {/* Sign In Link */}
+            <div className='mt-8 text-center'>
+                <p className='text-gray-600 text-sm cursor-pointer '>
+                    Already have an account?{' '}
+                    <span onClick={() => state(true)} className='text-indigo-600 hover:text-indigo-800 font-medium underline'>
+                        Sign in here
+                    </span>
+                </p>
+            </div>
         </>
     )
 }
