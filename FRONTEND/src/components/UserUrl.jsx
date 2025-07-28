@@ -10,6 +10,10 @@ const UserUrl = () => {
     refetchInterval: 30000, // Refetch every 30 seconds to update click counts
     staleTime: 0, // Consider data stale immediately so it refetches when invalidated
   })
+  
+  // Debug: Log the actual data structure
+  console.log('UserUrl component - urls data:', urls)
+  
   const [copiedId, setCopiedId] = useState(null)
   const handleCopy = (url, id) => {
     navigator.clipboard.writeText(url)
@@ -30,14 +34,15 @@ const UserUrl = () => {
   }
 
   if (isError) {
+    console.error('UserUrl component error:', error);
     return (
       <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded my-4">
-        Error loading your URLs: {error.message}
+        Error loading your URLs: {error?.response?.data?.message || error?.message || 'Unknown error'}
       </div>
     )
   }
 
-  if (!urls.urls || urls.urls.length === 0) {
+  if (!urls || !urls.urls || urls.urls.length === 0) {
     return (
       <div className="text-center text-gray-500 my-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
         <svg className="w-12 h-12 mx-auto text-gray-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
