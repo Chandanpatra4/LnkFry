@@ -3,6 +3,7 @@ import { registerUser } from '../api/user.api'
 import { useNavigate } from '@tanstack/react-router'
 import { useDispatch } from 'react-redux'
 import { login } from '../store/slices/authSlice'
+import { useQueryClient } from '@tanstack/react-query'
 
 const RegisterForm = ({state}) => {
     const [formData, setFormData] = useState({
@@ -15,6 +16,7 @@ const RegisterForm = ({state}) => {
     const [showPassword, setShowPassword] = useState(false)
      const navigate = useNavigate()
     const dispatch = useDispatch()
+    const queryClient = useQueryClient()
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -51,6 +53,10 @@ const RegisterForm = ({state}) => {
             
             // Set auth state immediately with the returned user data
             dispatch(login(data.user))
+            
+            // Invalidate queries to refetch with new auth state
+            queryClient.invalidateQueries({ queryKey: ['userUrls'] })
+            queryClient.invalidateQueries({ queryKey: ['currentUser'] })
             
             console.log('Registration successful:', data)
             

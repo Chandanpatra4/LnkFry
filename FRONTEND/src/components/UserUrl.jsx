@@ -1,18 +1,25 @@
 import React, { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
+import { useSelector } from 'react-redux'
 import { getAllUserUrls } from '../api/user.api'
 
 const UserUrl = () => {
   const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000'
+  const { isAuthenticated } = useSelector((state) => state.auth)
+  
   const { data: urls, isLoading, isError, error } = useQuery({
     queryKey: ['userUrls'],
     queryFn: getAllUserUrls,
+    enabled: isAuthenticated, // Only run query when authenticated
+    retry: 3, // Retry 3 times on failure
+    retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000), // Exponential backoff
     refetchInterval: 30000, // Refetch every 30 seconds to update click counts
     staleTime: 0, // Consider data stale immediately so it refetches when invalidated
   })
   
   // Debug: Log the actual data structure
   console.log('UserUrl component - urls data:', urls)
+  console.log('UserUrl component - isAuthenticated:', isAuthenticated)
   
   const [copiedId, setCopiedId] = useState(null)
   const handleCopy = (url, id) => {
@@ -23,6 +30,15 @@ const UserUrl = () => {
     setTimeout(() => {
       setCopiedId(null)
     }, 2000)
+  }
+
+  // If user is not authenticated, show message
+  if (!isAuthenticated) {
+    return (
+      <div className="text-center text-gray-500 my-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+        <p className="text-lg font-medium">Please log in to view your URLs</p>
+      </div>
+    )
   }
 
   if (isLoading) {

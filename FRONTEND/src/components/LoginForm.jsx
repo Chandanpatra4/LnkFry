@@ -3,6 +3,7 @@ import { loginUser } from '../api/user.api'
 import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../store/slices/authSlice.js'
 import { useNavigate } from '@tanstack/react-router'
+import { useQueryClient } from '@tanstack/react-query'
 
 
 const LoginForm = ({ state }) => {
@@ -16,6 +17,7 @@ const LoginForm = ({ state }) => {
     const auth = useSelector((state) => state.auth)
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const queryClient = useQueryClient()
     const handleChange = (e) => {
         const { name, value } = e.target
         setFormData(prev => ({
@@ -37,6 +39,10 @@ const LoginForm = ({ state }) => {
             
             // Set auth state immediately with the returned user data
             dispatch(login(data.user))
+            
+            // Invalidate queries to refetch with new auth state
+            queryClient.invalidateQueries({ queryKey: ['userUrls'] })
+            queryClient.invalidateQueries({ queryKey: ['currentUser'] })
             
             console.log('Login successful:', data)
             
