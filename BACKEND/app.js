@@ -23,7 +23,8 @@ connectDB();
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://lnk-fry.vercel.app"
+  "https://lnk-fry.vercel.app",
+  "https://lnkfry.up.railway.app"
 ];
 
 app.use(cors({
