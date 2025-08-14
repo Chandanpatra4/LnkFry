@@ -58,7 +58,8 @@ app.get("/:id", redirectFromShortUrl);
 app.use(errorHandler);
 
 // Start server
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-    console.log(`Server is running on port http://localhost:${PORT}`);
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Server is running on port ${PORT}`);
 });
+
