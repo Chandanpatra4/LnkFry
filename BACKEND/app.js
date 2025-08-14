@@ -59,6 +59,8 @@ app.use(errorHandler);
 
 // Start server
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port http://localhost:${PORT}`);
+const HOST = "0.0.0.0"; // ✅ Listen on all interfaces (required for Railway, Render, etc.)
+
+app.listen(PORT, HOST, () => {
+    console.log(`✅ Server is running at http://${HOST}:${PORT}`);
 });
